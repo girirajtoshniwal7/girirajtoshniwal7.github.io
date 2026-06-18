@@ -5,247 +5,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemini CLI Commands Reference Guide</title>
     <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary-color: #bb86fc;
+            --secondary-color: #03dac6;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+            --code-bg: #2c2c2c;
+            --error-color: #cf6679;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #e0e0e0;
+            color: var(--text-color);
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #121212;
+            background-color: var(--bg-color);
+            transition: font-size 0.3s ease;
         }
+
         header {
-            background-color: #1e1e1e;
+            background-color: var(--card-bg);
             color: #ffffff;
-            padding: 30px;
+            padding: 30px 15px;
             border-radius: 8px 8px 0 0;
             text-align: center;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border-color);
         }
+
         h1 {
             margin: 0;
             font-size: 2.5em;
-            color: #bb86fc;
+            color: var(--primary-color);
         }
+
         .subtitle {
             font-size: 1.1em;
             opacity: 0.9;
             margin-top: 10px;
-            color: #03dac6;
+            color: var(--secondary-color);
         }
+
         section {
-            background: #1e1e1e;
+            background: var(--card-bg);
             padding: 25px;
             margin-bottom: 20px;
             border-radius: 0 0 8px 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
         h2 {
-            color: #bb86fc;
-            border-bottom: 2px solid #333;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 10px;
             margin-top: 0;
         }
+
         h3 {
-            color: #03dac6;
+            color: var(--secondary-color);
             margin-top: 20px;
         }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            min-width: 600px; /* Ensures table doesn't get too squished */
         }
+
         th, td {
             text-align: left;
             padding: 12px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border-color);
         }
+
         th {
             background-color: #2c2c2c;
-            color: #bb86fc;
+            color: var(--primary-color);
             text-transform: uppercase;
             font-size: 0.85em;
             letter-spacing: 1px;
         }
+
         tr:hover {
             background-color: #252525;
         }
+
         code {
-            background-color: #2c2c2c;
+            background-color: var(--code-bg);
             padding: 2px 6px;
             border-radius: 4px;
             font-family: 'Courier New', Courier, monospace;
-            color: #cf6679;
+            color: var(--error-color);
             font-weight: bold;
+            white-space: nowrap;
         }
+
         footer {
             text-align: center;
             font-size: 0.8em;
             color: #757575;
             margin-top: 40px;
+            padding-bottom: 20px;
+        }
+
+        /* Responsive / Mobile Adjustments */
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+                font-size: 1.2em; /* Larger base font for mobile */
+            }
+
+            header {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+
+            /* Make code slightly smaller relative to large mobile text if needed, 
+               but kept bold for visibility */
+            code {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Gemini CLI Commands Reference Guide</h1>
-    <p class="subtitle">A complete breakdown of terminal flags, interactive slash commands, and input triggers.</p>
+    <h1>Gemini CLI Reference</h1>
+    <p class="subtitle">Optimized for Desktop & Mobile Terminal Masters</p>
 </header>
 
 <section>
-    <h2>1. Interactive Slash Commands (Inside CLI Session)</h2>
-    <p>These commands are executed inside the live interactive REPL session to control configuration, memory, tools, and conversation states.</p>
+    <h2>1. Interactive Slash Commands</h2>
+    <p>Use these inside your live CLI session.</p>
 
-    <h3>Session & Chat Management</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Command</th>
-                <th>Purpose & Explanation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>/help</code></td>
-                <td>Displays comprehensive help text and lists all currently available environment commands.</td>
-            </tr>
-            <tr>
-                <td><code>/clear</code></td>
-                <td>Clears the visual terminal interface screen and resets the model's active context window back to empty.</td>
-            </tr>
-            <tr>
-                <td><code>/quit</code> or <code>/exit</code></td>
-                <td>Gracefully terminates the live interactive AI agent session and returns control back to the system shell.</td>
-            </tr>
-            <tr>
-                <td><code>/chat save &lt;tag&gt;</code></td>
-                <td>Saves the current state of the chat thread history under a unique user-specified tag name.</td>
-            </tr>
-            <tr>
-                <td><code>/chat resume &lt;tag&gt;</code></td>
-                <td>Reloads and populates a previously saved conversation thread context back into the live window.</td>
-            </tr>
-            <tr>
-                <td><code>/chat list</code></td>
-                <td>Scans the local active workspace environment directory and prints all stored session checkpoint tags.</td>
-            </tr>
-            <tr>
-                <td><code>/chat delete &lt;tag&gt;</code></td>
-                <td>Permanently erases a specific conversation history checkpoint tag from the disk storage.</td>
-            </tr>
-            <tr>
-                <td><code>/chat share [file.md/.json]</code></td>
-                <td>Exports the complete dialogue log directly into a cleanly formatted external Markdown or structural JSON file.</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3>Session Management</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>/help</code></td><td>Show all available commands.</td></tr>
+                <tr><td><code>/clear</code></td><td>Reset the visual terminal and context.</td></tr>
+                <tr><td><code>/quit</code></td><td>Exit the AI agent session.</td></tr>
+                <tr><td><code>/chat save &lt;tag&gt;</code></td><td>Save history under a tag.</td></tr>
+                <tr><td><code>/chat resume &lt;tag&gt;</code></td><td>Reload a saved session.</td></tr>
+                <tr><td><code>/chat list</code></td><td>List all stored session tags.</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <h3>Environment & Tool Integration</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Command</th>
-                <th>Purpose & Explanation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>/tools</code></td>
-                <td>Lists every function call tool available to the model. Use <code>/tools desc</code> to view extended capabilities parameters.</td>
-            </tr>
-            <tr>
-                <td><code>/mcp</code></td>
-                <td>Manages Model Context Protocol servers. Subcommands like list or reload connect external enterprise data infrastructure dynamically.</td>
-            </tr>
-            <tr>
-                <td><code>/directory add &lt;path&gt;</code></td>
-                <td>Appends a specified localized directory pathway contextually into the AI agent's searchable workspace footprint.</td>
-            </tr>
-            <tr>
-                <td><code>/directory show</code></td>
-                <td>Renders a tree-like view of all system folder frameworks currently exposed to the model context.</td>
-            </tr>
-            <tr>
-                <td><code>/memory add &lt;text&gt;</code></td>
-                <td>Stores long-term custom system prompt constraints or localized developer rule configurations across continuous runs.</td>
-            </tr>
-            <tr>
-                <td><code>/memory show</code></td>
-                <td>Outputs all registered developer persona parameters, coding guardrails, and styling instructions stored in memory.</td>
-            </tr>
-            <tr>
-                <td><code>/model</code></td>
-                <td>Triggers an interactive interface toggle switch to switch models smoothly (e.g., Flash for fast responses, Pro for deep analytics).</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3>Tools & Memory</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>/tools</code></td><td>List all active function tools.</td></tr>
+                <tr><td><code>/mcp</code></td><td>Manage external data servers.</td></tr>
+                <tr><td><code>/memory add &lt;text&gt;</code></td><td>Save custom prompt rules.</td></tr>
+                <tr><td><code>/memory show</code></td><td>View active guardrails & style.</td></tr>
+                <tr><td><code>/model</code></td><td>Switch between AI models.</td></tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <section>
-    <h2>2. CLI Core Startup Flags (Terminal Launching)</h2>
-    <p>These arguments adjust the initialization configurations of the tool when called directly from standard system prompt scripts.</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Flag Option</th>
-                <th>Purpose & Explanation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>gemini -p "query"</code><br><code>--prompt "query"</code></td>
-                <td>Executes a strict non-interactive command operation. The model interprets the prompt, renders standard output, and exits immediately.</td>
-            </tr>
-            <tr>
-                <td><code>gemini -i "query"</code><br><code>--prompt-interactive</code></td>
-                <td>Starts the CLI by evaluating the initial text prompt input and seamlessly drops you straight into the live conversation prompt.</td>
-            </tr>
-            <tr>
-                <td><code>gemini -m "&lt;name&gt;"</code><br><code>--model "&lt;name&gt;"</code></td>
-                <td>Explicitly overrides the baseline system config file model choices with a specified model version.</td>
-            </tr>
-            <tr>
-                <td><code>gemini -r "latest"</code><br><code>--resume</code></td>
-                <td>Automatically looks up and restores the last active workspace session thread, minimizing context loss.</td>
-            </tr>
-            <tr>
-                <td><code>gemini --approval-mode</code></td>
-                <td>Controls agent shell operation execution safety boundaries: <code>default</code> (always prompts), <code>auto_edit</code> (auto-edits, asks on runs), or <code>yolo</code> (no prompts).</td>
-            </tr>
-            <tr>
-                <td><code>gemini --include-directories</code></td>
-                <td>Pre-loads designated lists of separated workspace structural pathways straight into context on launch.</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>2. Startup Flags</h2>
+    <p>Terminal arguments for launching the tool.</p>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Flag</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>-p "query"</code></td><td>One-shot prompt and exit.</td></tr>
+                <tr><td><code>-i "query"</code></td><td>Start with prompt and stay interactive.</td></tr>
+                <tr><td><code>-m "&lt;name&gt;"</code></td><td>Override default model choice.</td></tr>
+                <tr><td><code>-r "latest"</code></td><td>Auto-resume the last session.</td></tr>
+                <tr><td><code>--yolo</code></td><td>Enable automatic tool execution.</td></tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <section>
-    <h2>3. Special Input Triggers</h2>
-    <p>Prefix notation shortkeys used to signal complex ingestion context parsing right inside the active terminal chat line.</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Prefix Symbol</th>
-                <th>Purpose & Explanation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>@&lt;file_path&gt;</code></td>
-                <td><strong>Direct Context Injection:</strong> Instructs the tool to pull the entire contents of a specific file or directory directly into the context window.</td>
-            </tr>
-            <tr>
-                <td><code>!&lt;command&gt;</code></td>
-                <td><strong>Direct Shell Escape:</strong> Temporarily passes the instruction directly to the system's local shell terminal environment without closing the session.</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>3. Special Triggers</h2>
+    <p>Input prefix notation for direct actions.</p>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>@&lt;path&gt;</code></td><td>Inject file/folder into context.</td></tr>
+                <tr><td><code>!&lt;cmd&gt;</code></td><td>Execute local shell command.</td></tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <footer>
-    Gemini CLI Command Reference Manual &bull; Generated June 2026
+    Gemini CLI Manual &bull; Mobile Ready &bull; 2026
 </footer>
 
 </body>
