@@ -49,6 +49,7 @@ body::before{
 /* ── SIDEBAR ── */
 .sidebar{
   position:sticky;top:0;height:100vh;overflow-y:auto;
+  width:280px;
   background:var(--s1);
   border-right:1px solid var(--border);
   display:flex;flex-direction:column;
@@ -1527,16 +1528,18 @@ function show(id) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const page = document.getElementById(id);
   if (page) page.classList.add('active');
-  // Find matching nav item by onclick
+  // Find matching nav item safely
   document.querySelectorAll('.nav-item').forEach(n => {
-    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) {
+    const attr = n.getAttribute('onclick');
+    if (attr && String(attr).indexOf("'" + id + "'") !== -1) {
       n.classList.add('active');
     }
   });
   // On mobile, close sidebar
   if (window.innerWidth <= 900) closeSidebar();
-  // Scroll main to top
-  document.getElementById('main').scrollTop = 0;
+  // Scroll main to top safely
+  const main = document.getElementById('main');
+  if (main) main.scrollTop = 0;
   window.scrollTo(0,0);
 }
 
